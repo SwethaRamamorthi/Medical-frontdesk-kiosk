@@ -181,7 +181,7 @@ export default function PatientHistory() {
                             alignItems: 'flex-start'
                         }}>
                             {/* The Message Bubble */}
-                            <div style={suggestionBubbleStyle}>
+                            <div style={{ ...suggestionBubbleStyle, display: botStep === -1 ? 'none' : 'block' }}>
                                 {/* Arrow pointing down to the bot */}
                                 <div style={{
                                     position: 'absolute',
@@ -204,9 +204,12 @@ export default function PatientHistory() {
                                     borderTop: '11px solid rgba(255, 255, 255, 0.95)'
                                 }} />
 
-                                <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>
-                                    ✨ AI Assistant
-                                </h3>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                                    <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                        ✨ AI Assistant
+                                    </h3>
+                                    <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
+                                </div>
 
                                 {botStep === 0 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
@@ -283,7 +286,7 @@ export default function PatientHistory() {
                             </div>
 
                             {/* The Bot Icon */}
-                            <div style={floatingBotStyle}>
+                            <div style={floatingBotStyle} onClick={() => setBotStep(botStep === -1 ? 0 : -1)}>
                                 🤖
                             </div>
                         </div>
