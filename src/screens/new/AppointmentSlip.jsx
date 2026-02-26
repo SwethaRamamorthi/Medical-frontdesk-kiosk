@@ -43,6 +43,24 @@ export default function AppointmentSlip() {
 
     const today = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: 'long', year: 'numeric' });
 
+    const handleWhatsAppShare = () => {
+        const phoneNumber = patient?.phone || '';
+        const waPhone = phoneNumber.startsWith('91') || phoneNumber.startsWith('+91')
+            ? phoneNumber.replace('+', '')
+            : `91${phoneNumber}`;
+
+        const ptName = appointment.patientName || patient?.name;
+        const drName = appointment.doctorName || selectedDoctor?.name;
+        const apptDate = appointment.date || today;
+        const apptSlot = appointment.slot || selectedSlot;
+        const hospitalName = t('hospitalName', { returnObjects: true });
+
+        const message = `*Appointment Confirmed!* 🏥\n\n*Name:* ${ptName}\n*Doctor:* ${drName}\n*Date:* ${apptDate}\n*Time:* ${apptSlot}\n*Token:* ${appointment.tokenNumber}\n\nThank you for choosing ${typeof hospitalName === 'string' ? hospitalName : 'SmartCare Hospital'}.`;
+
+        const url = `https://wa.me/${waPhone}?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+    };
+
     return (
         <div className="screen fade-in">
             {/* ── Non-print header ── */}
@@ -191,10 +209,19 @@ export default function AppointmentSlip() {
                 </div>
 
                 {/* Action buttons */}
-                <div className="no-print" style={{ display: 'flex', gap: 16, marginTop: 20 }}>
+                <div className="no-print" style={{ display: 'flex', gap: 16, marginTop: 20, flexWrap: 'wrap', justifyContent: 'center' }}>
                     <button className="btn btn-outline" onClick={() => window.print()}>
                         🖨️ {t('printAgain')}
                     </button>
+                    {patient?.phone && (
+                        <button
+                            className="btn btn-outline"
+                            style={{ borderColor: '#25D366', color: '#25D366' }}
+                            onClick={handleWhatsAppShare}
+                        >
+                            💬 WhatsApp
+                        </button>
+                    )}
                     <button className="btn btn-primary" onClick={() => { clearInterval(countdownRef.current); navigate('/'); }}>
                         🏠 {t('backToHome')}
                     </button>
