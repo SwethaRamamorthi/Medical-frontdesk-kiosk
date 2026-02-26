@@ -33,7 +33,7 @@ export default function PatientSearch() {
         if (phone.length !== 10) { setError(locale === 'ta' ? 'தயவுசெய்து 10 இலக்க மொபைல் எண்ணை உள்ளிடவும்' : 'Please enter 10 digit mobile number'); return; }
         setError(''); setLoading(true);
         try {
-            const q = query(collection(db, 'patients'), where('mobile', '==', phone));
+            const q = query(collection(db, 'patients'), where('phone', '==', phone));
             const snap = await getDocs(q);
             if (snap.empty) {
                 setError(locale === 'ta' ? 'இந்த எண்ணில் நோயாளி தகவல் இல்லை. புதிய நோயாளியாக பதிவு செய்யவும்.' : 'No patient found with this mobile number. Please register as a new patient.');
