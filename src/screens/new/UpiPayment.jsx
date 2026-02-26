@@ -37,7 +37,37 @@ export default function UpiPayment() {
     const [timeLeft, setTimeLeft] = useState(PAYMENT_SECONDS);
     const [paid, setPaid] = useState(false);
     const [saving, setSaving] = useState(false);
+    const [botStep, setBotStep] = useState(0);
     const timerRef = useRef(null);
+
+    // Floating animation for the bot icon
+    const floatingBotStyle = {
+        fontSize: '3.5rem',
+        filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
+        animation: 'floating 3s ease-in-out infinite',
+        cursor: 'pointer',
+        position: 'relative',
+        zIndex: 100,
+    };
+
+    // Tooltip/bubble style
+    const suggestionBubbleStyle = {
+        position: 'absolute',
+        bottom: '100%',
+        left: '20px',
+        marginBottom: '20px',
+        width: '380px',
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(16px)',
+        border: '2px solid rgba(108, 99, 255, 0.4)',
+        borderRadius: '24px 24px 24px 4px',
+        padding: '24px',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
+        transformOrigin: 'bottom left',
+        animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        zIndex: 99,
+        color: '#333'
+    };
 
     // Stable QR cells — computed once
     const qrCells = useMemo(() => makeQrCells(selectedDoctor?.fee || 42), []);
@@ -264,6 +294,85 @@ export default function UpiPayment() {
                     </div>
                 )}
             </div>
+
+            {/* Floating AI Suggestion Bot (Bottom Left) */}
+            <div style={{ position: 'fixed', bottom: '40px', left: '40px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
+                    <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                    <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+
+                    <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                    <div className="fade-in">
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            You are almost done! I can help you complete this payment.
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
+                                📱 How do I scan the QR code?
+                            </button>
+                            <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
+                                ⏱️ What happens if the timer runs out?
+                            </button>
+                            <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
+                                ✅ I have paid. What next?
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {botStep === 1 && (
+                    <div style={suggestionBubbleStyle} className="fade-in">
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            Open any UPI app on your phone (like <strong>GPay, PhonePe, or Paytm</strong>). Tap the "Scan QR" button in your app, point your camera at the QR code on this screen, and pay the requested amount.
+                        </p>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                    </div>
+                )}
+
+                {botStep === 2 && (
+                    <div style={suggestionBubbleStyle} className="fade-in">
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            If the 5-minute timer runs out, this session will expire for your security. You will be safely returned to the home screen and can start over anytime!
+                        </p>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                    </div>
+                )}
+
+                {botStep === 3 && (
+                    <div style={suggestionBubbleStyle} className="fade-in">
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            If you have successfully paid using your phone, tap the large green <strong>"✅ Payment Completed"</strong> button below the timer to confirm and print your appointment slip!
+                        </p>
+                        <div style={{ display: 'flex', gap: 10 }}>
+                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                            <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => {
+                                setBotStep(-1);
+                                handlePaymentDone();
+                            }}>
+                                Confirm Payment ➔
+                            </button>
+                        </div>
+                    </div>
+                )}
+
+                <div style={floatingBotStyle} onClick={() => setBotStep(botStep === -1 ? 0 : -1)}>
+                    🤖
+                </div>
+            </div>
+
             <EmergencyButton />
         </div>
     );

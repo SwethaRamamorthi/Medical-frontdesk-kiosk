@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { departments } from '../../data/departments';
 import { useKiosk } from '../../context/KioskContext';
@@ -9,6 +9,35 @@ export default function DepartmentSelection() {
     const navigate = useNavigate();
     const { patient, setSelectedDept, t, locale } = useKiosk();
     const { speak } = useSpeech();
+    const [botStep, setBotStep] = useState(0);
+
+    // Floating animation for the bot icon
+    const floatingBotStyle = {
+        fontSize: '3.5rem',
+        filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
+        animation: 'floating 3s ease-in-out infinite',
+        cursor: 'pointer',
+        position: 'relative',
+        zIndex: 100,
+    };
+
+    // Tooltip/bubble style
+    const suggestionBubbleStyle = {
+        position: 'absolute',
+        bottom: '100%',
+        left: '20px',
+        marginBottom: '20px',
+        width: '380px',
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(16px)',
+        border: '2px solid rgba(108, 99, 255, 0.4)',
+        borderRadius: '24px 24px 24px 4px',
+        padding: '24px',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
+        transformOrigin: 'bottom left',
+        animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        zIndex: 99,
+    };
 
     useEffect(() => {
         speak(locale === 'ta' ? 'தயவுசெய்து நீங்கள் ஆலோசிக்க விரும்பும் துறையைத் தேர்ந்தெடுக்கவும்.' : 'Please select the department you wish to consult.');
@@ -115,6 +144,101 @@ export default function DepartmentSelection() {
                         ))}
                     </div>
                 </div>
+
+                {/* Floating AI Suggestion Bot (Bottom Left) */}
+                <div style={{
+                    position: 'fixed',
+                    bottom: '40px',
+                    left: '40px',
+                    zIndex: 1000,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start'
+                }}>
+                    {/* The Message Bubble */}
+                    <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>
+                            ✨ AI Assistant
+                        </h3>
+
+                        <div className="fade-in">
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                Not sure which department to choose? Tell me your symptoms and I can guide you!
+                            </p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
+                                    🤕 I have a headache / dizziness
+                                </button>
+                                <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
+                                    🦴 I have joint / bone pain
+                                </button>
+                                <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
+                                    ❤️ I have chest pain / palpitations
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    {botStep === 1 && (
+                        <div style={suggestionBubbleStyle} className="fade-in">
+                            <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                            <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                            <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                For headaches and dizziness, you should consult a <strong>Neurologist</strong>. I'll highlight the Neurology department for you.
+                            </p>
+                            <div style={{ display: 'flex', gap: 10 }}>
+                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSelect(departments.find(d => d.id === 'neurologist'))}>
+                                    Select Neurology ➔
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {botStep === 2 && (
+                        <div style={suggestionBubbleStyle} className="fade-in">
+                            <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                            <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                            <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                For bone or joint pain, an <strong>Orthopedic</strong> specialist is best. Let's go to their profiles!
+                            </p>
+                            <div style={{ display: 'flex', gap: 10 }}>
+                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSelect(departments.find(d => d.id === 'orthopedic'))}>
+                                    Select Orthopedics ➔
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {botStep === 3 && (
+                        <div style={suggestionBubbleStyle} className="fade-in">
+                            <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                            <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                            <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                Chest pain and palpitations require attention from a <strong>Cardiologist</strong>. Please select Cardiology, or use the Emergency button if urgent.
+                            </p>
+                            <div style={{ display: 'flex', gap: 10 }}>
+                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSelect(departments.find(d => d.id === 'cardiologist'))}>
+                                    Select Cardiology ➔
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* The Bot Icon */}
+                    <div style={floatingBotStyle} onClick={() => setBotStep(botStep === -1 ? 0 : -1)}>
+                        🤖
+                    </div>
+                </div>
+
             </div>
             <EmergencyButton />
         </div>

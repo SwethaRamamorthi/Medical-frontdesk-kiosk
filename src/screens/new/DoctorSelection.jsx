@@ -48,6 +48,36 @@ export default function DoctorSelection() {
     const [loading, setLoading] = useState(true);
     const [selectedSlotLocal, setSelectedSlotLocal] = useState({});
     const [expandedDocId, setExpandedDocId] = useState(null);
+    const [botStep, setBotStep] = useState(0);
+
+    // Floating animation for the bot icon
+    const floatingBotStyle = {
+        fontSize: '3.5rem',
+        filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
+        animation: 'floating 3s ease-in-out infinite',
+        cursor: 'pointer',
+        position: 'relative',
+        zIndex: 100,
+    };
+
+    // Tooltip/bubble style
+    const suggestionBubbleStyle = {
+        position: 'absolute',
+        bottom: '100%',
+        left: '20px',
+        marginBottom: '20px',
+        width: '380px',
+        background: 'rgba(255, 255, 255, 0.95)',
+        backdropFilter: 'blur(16px)',
+        border: '2px solid rgba(108, 99, 255, 0.4)',
+        borderRadius: '24px 24px 24px 4px',
+        padding: '24px',
+        boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
+        transformOrigin: 'bottom left',
+        animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+        zIndex: 99,
+        color: '#333'
+    };
 
     useEffect(() => {
         // Handle pre-selected department from history/AI
@@ -272,6 +302,91 @@ export default function DoctorSelection() {
                     </div>
                 )}
             </div>
+
+            {/* Floating AI Suggestion Bot (Bottom Left) */}
+            <div style={{ position: 'fixed', bottom: '40px', left: '40px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
+                    <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                    <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+
+                    <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                    <div className="fade-in">
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            These are our top {selectedDept && (typeof selectedDept.label === 'object' ? selectedDept.label.en : selectedDept.label)}s. Need help choosing?
+                        </p>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                            <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
+                                👨‍⚕️ Who is the most experienced?
+                            </button>
+                            <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
+                                💰 Show most economical option
+                            </button>
+                            <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
+                                🕐 How do I book a slot?
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {botStep === 1 && doctors.length > 0 && (
+                    <div style={suggestionBubbleStyle} className="fade-in">
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            {(() => {
+                                const mostExp = [...doctors].sort((a, b) => parseInt(b.experience) - parseInt(a.experience))[0];
+                                return (
+                                    <>
+                                        <strong>{mostExp.name}</strong> has the most experience out of available doctors today, with <strong>{mostExp.experience}</strong> of practice. I recommend them for complex cases.
+                                    </>
+                                );
+                            })()}
+                        </p>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                    </div>
+                )}
+
+                {botStep === 2 && doctors.length > 0 && (
+                    <div style={suggestionBubbleStyle} className="fade-in">
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            {(() => {
+                                const cheapest = [...doctors].sort((a, b) => a.fee - b.fee)[0];
+                                return (
+                                    <>
+                                        <strong>{cheapest.name}</strong> currently has the most economical consultation fee of <strong>₹{cheapest.fee}</strong>. You can choose any of their available timeslots to book!
+                                    </>
+                                );
+                            })()}
+                        </p>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                    </div>
+                )}
+
+                {botStep === 3 && (
+                    <div style={suggestionBubbleStyle} className="fade-in">
+                        <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
+                        <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
+                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            To book, simply tap on any of the <strong>available time slots</strong> (e.g., 🕐 11:30 AM) listed under the doctor's name. You will be automatically taken to the payment screen to confirm!
+                        </p>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                    </div>
+                )}
+
+                <div style={floatingBotStyle} onClick={() => setBotStep(botStep === -1 ? 0 : -1)}>
+                    🤖
+                </div>
+            </div>
+
             <EmergencyButton />
         </div>
     );
