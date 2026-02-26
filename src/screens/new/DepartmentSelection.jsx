@@ -149,7 +149,7 @@ export default function DepartmentSelection() {
                 <div style={{
                     position: 'fixed',
                     bottom: '40px',
-                    left: '40px',
+                    left: '20px',
                     zIndex: 1000,
                     display: 'flex',
                     flexDirection: 'column',

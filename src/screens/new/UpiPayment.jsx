@@ -296,7 +296,7 @@ export default function UpiPayment() {
             </div>
 
             {/* Floating AI Suggestion Bot (Bottom Left) */}
-            <div style={{ position: 'fixed', bottom: '40px', left: '40px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div style={{ position: 'fixed', bottom: '40px', left: '20px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
                     <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
