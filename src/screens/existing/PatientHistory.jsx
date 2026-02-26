@@ -42,6 +42,7 @@ export default function PatientHistory() {
     const { speak } = useSpeech();
     const [appointments, setAppointments] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [botStep, setBotStep] = useState(0);
 
     useEffect(() => {
         if (!patient) { navigate('/existing'); return; }
@@ -206,25 +207,79 @@ export default function PatientHistory() {
                                 <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>
                                     ✨ AI Assistant
                                 </h3>
-                                <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
-                                    I noticed your last visit was with <strong>{lastVisit.doctorName}</strong> in <strong>{lastVisit.department}</strong>. Would you like to consult them again?
-                                </p>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                                    <button
-                                        className="btn btn-primary"
-                                        style={{ background: '#5b54d6', borderColor: '#5b54d6', width: '100%', justifyContent: 'center' }}
-                                        onClick={() => handleRevisitDoctor(lastVisit.doctorName, lastVisitDeptId)}
-                                    >
-                                        👨‍⚕️ Revisit {lastVisit.doctorName}
-                                    </button>
-                                    <button
-                                        className="btn btn-outline"
-                                        style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'center', background: 'transparent' }}
-                                        onClick={() => handleSuggestOther(lastVisitDeptId)}
-                                    >
-                                        🔍 Show other {lastVisit.department} doctors
-                                    </button>
-                                </div>
+
+                                {botStep === 0 && (
+                                    <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                            Hi <strong>{patient.name}</strong>! I noticed your last visit was with <strong>Dr. {lastVisit.doctorName}</strong> for {lastVisit.department.replace(/department/i, '').trim()}. How can I help you today?
+                                        </p>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                                            <button
+                                                className="btn btn-outline"
+                                                style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }}
+                                                onClick={() => setBotStep(1)}
+                                            >
+                                                👨‍⚕️ I want a follow-up with Dr. {lastVisit.doctorName}
+                                            </button>
+                                            <button
+                                                className="btn btn-outline"
+                                                style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }}
+                                                onClick={() => setBotStep(2)}
+                                            >
+                                                � I'd like to see another {lastVisit.department.replace(/department/i, '').trim()} doctor
+                                            </button>
+                                            <button
+                                                className="btn btn-outline"
+                                                style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }}
+                                                onClick={() => setBotStep(3)}
+                                            >
+                                                🩺 I have a new or different problem
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {botStep === 1 && (
+                                    <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                            Great! Let's book a follow-up. I will take you to <strong>Dr. {lastVisit.doctorName}'s</strong> profile where you can select an available time slot and complete your booking.
+                                        </p>
+                                        <div style={{ display: 'flex', gap: 10 }}>
+                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                            <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleRevisitDoctor(lastVisit.doctorName, lastVisitDeptId)}>
+                                                Select Time Slot ➔
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {botStep === 2 && (
+                                    <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                            Sure. I will show you our other experienced doctors in the <strong>{lastVisit.department}</strong> department so you can choose who you'd like to consult.
+                                        </p>
+                                        <div style={{ display: 'flex', gap: 10 }}>
+                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                            <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSuggestOther(lastVisitDeptId)}>
+                                                View Doctors ➔
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
+
+                                {botStep === 3 && (
+                                    <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                            I'm here to help. I will redirect you to the department selection menu so we can find the right specialist for your new concern.
+                                        </p>
+                                        <div style={{ display: 'flex', gap: 10 }}>
+                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                            <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={handleBookNew}>
+                                                Start New Booking ➔
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
 
                             {/* The Bot Icon */}
