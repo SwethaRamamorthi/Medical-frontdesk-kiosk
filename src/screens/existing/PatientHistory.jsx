@@ -206,7 +206,7 @@ export default function PatientHistory() {
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                                     <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
-                                        ✨ AI Assistant
+                                        {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
                                     </h3>
                                     <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                                 </div>
@@ -214,7 +214,11 @@ export default function PatientHistory() {
                                 {botStep === 0 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
                                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                            Hi <strong>{patient.name}</strong>! I noticed your last visit was with <strong>Dr. {lastVisit.doctorName}</strong> for {lastVisit.department.replace(/department/i, '').trim()}. How can I help you today?
+                                            {locale === 'ta' ? (
+                                                <>வணக்கம் <strong>{patient.name}</strong>! உங்கள் கடைசி சந்திப்பு <strong>டாக்டர் {lastVisit.doctorName}</strong> உடன் {lastVisit.department.replace(/department/i, '').trim()} பிரிவில் இருந்தது. இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்?</>
+                                            ) : (
+                                                <>Hi <strong>{patient.name}</strong>! I noticed your last visit was with <strong>Dr. {lastVisit.doctorName}</strong> for {lastVisit.department.replace(/department/i, '').trim()}. How can I help you today?</>
+                                            )}
                                         </p>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                                             <button
@@ -222,21 +226,21 @@ export default function PatientHistory() {
                                                 style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }}
                                                 onClick={() => setBotStep(1)}
                                             >
-                                                👨‍⚕️ I want a follow-up with Dr. {lastVisit.doctorName}
+                                                {locale === 'ta' ? `👨‍⚕️ டாக்டர் ${lastVisit.doctorName} உடன் மீண்டும் மருத்துவ ஆலோசனை` : `👨‍⚕️ I want a follow-up with Dr. ${lastVisit.doctorName}`}
                                             </button>
                                             <button
                                                 className="btn btn-outline"
                                                 style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }}
                                                 onClick={() => setBotStep(2)}
                                             >
-                                                � I'd like to see another {lastVisit.department.replace(/department/i, '').trim()} doctor
+                                                {locale === 'ta' ? `🔄 வேறு ${lastVisit.department.replace(/department/i, '').trim()} மருத்துவரை பார்க்க வேண்டும்` : `🔄 I'd like to see another ${lastVisit.department.replace(/department/i, '').trim()} doctor`}
                                             </button>
                                             <button
                                                 className="btn btn-outline"
                                                 style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }}
                                                 onClick={() => setBotStep(3)}
                                             >
-                                                🩺 I have a new or different problem
+                                                {locale === 'ta' ? '🩺 எனக்கு புதிய அல்லது வேறுபட்ட பிரச்சனை உள்ளது' : '🩺 I have a new or different problem'}
                                             </button>
                                         </div>
                                     </div>
@@ -245,12 +249,16 @@ export default function PatientHistory() {
                                 {botStep === 1 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
                                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                            Great! Let's book a follow-up. I will take you to <strong>Dr. {lastVisit.doctorName}'s</strong> profile where you can select an available time slot and complete your booking.
+                                            {locale === 'ta' ? (
+                                                <>சிறப்பு! ஒரு தொடர் சந்திப்பை பதிவு செய்வோம். நீங்கள் நேரத்தை தேர்ந்தெடுத்து முன்பதிவை முடிக்க <strong>டாக்டர் {lastVisit.doctorName}</strong> அவர்களின் சுயவிவரத்திற்கு அழைத்துச் செல்கிறேன்.</>
+                                            ) : (
+                                                <>Great! Let's book a follow-up. I will take you to <strong>Dr. {lastVisit.doctorName}'s</strong> profile where you can select an available time slot and complete your booking.</>
+                                            )}
                                         </p>
                                         <div style={{ display: 'flex', gap: 10 }}>
-                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                                             <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleRevisitDoctor(lastVisit.doctorName, lastVisitDeptId)}>
-                                                Select Time Slot ➔
+                                                {locale === 'ta' ? 'நேரத்தை தேர்ந்தெடுக்கவும் ➔' : 'Select Time Slot ➔'}
                                             </button>
                                         </div>
                                     </div>
@@ -259,12 +267,16 @@ export default function PatientHistory() {
                                 {botStep === 2 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
                                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                            Sure. I will show you our other experienced doctors in the <strong>{lastVisit.department}</strong> department so you can choose who you'd like to consult.
+                                            {locale === 'ta' ? (
+                                                <>நிச்சயமாக. <strong>{lastVisit.department}</strong> பிரிவில் உள்ள எங்கள் பிற அனுபவமிக்க மருத்துவர்களை காண்பிக்கிறேன், நீங்கள் யாரை அணுக வேண்டும் என்று தேர்வு செய்யலாம்.</>
+                                            ) : (
+                                                <>Sure. I will show you our other experienced doctors in the <strong>{lastVisit.department}</strong> department so you can choose who you'd like to consult.</>
+                                            )}
                                         </p>
                                         <div style={{ display: 'flex', gap: 10 }}>
-                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                                             <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSuggestOther(lastVisitDeptId)}>
-                                                View Doctors ➔
+                                                {locale === 'ta' ? 'மருத்துவர்களைக் காண்க ➔' : 'View Doctors ➔'}
                                             </button>
                                         </div>
                                     </div>
@@ -273,12 +285,16 @@ export default function PatientHistory() {
                                 {botStep === 3 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
                                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                            I'm here to help. I will redirect you to the department selection menu so we can find the right specialist for your new concern.
+                                            {locale === 'ta' ? (
+                                                <>புதிய பிரச்சனைக்கான சரியான நிபுணரைக் கண்டறிய, உங்களை துறை தேர்வு மெனுவிற்கு திருப்பி விடுகிறேன்.</>
+                                            ) : (
+                                                <>I'm here to help. I will redirect you to the department selection menu so we can find the right specialist for your new concern.</>
+                                            )}
                                         </p>
                                         <div style={{ display: 'flex', gap: 10 }}>
-                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                                             <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={handleBookNew}>
-                                                Start New Booking ➔
+                                                {locale === 'ta' ? 'புதிய முன்பதிவை தொடர்க ➔' : 'Start New Booking ➔'}
                                             </button>
                                         </div>
                                     </div>

@@ -310,23 +310,29 @@ export default function DoctorSelection() {
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                        <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                        <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                            {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                        </h3>
                         <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                     </div>
 
                     <div className="fade-in">
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            These are our top {selectedDept && (typeof selectedDept.label === 'object' ? selectedDept.label.en : selectedDept.label)}s. Need help choosing?
+                            {locale === 'ta' ? (
+                                <>இவர்கள் எங்களின் சிறந்த {selectedDept && (typeof selectedDept.label === 'object' ? selectedDept.label.ta : selectedDept.label)} மருத்துவர்கள். தேர்ந்தெடுக்க உதவி வேண்டுமா?</>
+                            ) : (
+                                <>These are our top {selectedDept && (typeof selectedDept.label === 'object' ? selectedDept.label.en : selectedDept.label)}s. Need help choosing?</>
+                            )}
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
-                                👨‍⚕️ Who is the most experienced?
+                                {locale === 'ta' ? '👨‍⚕️ யார் அதிக அனுபவம் வாய்ந்தவர்?' : '👨‍⚕️ Who is the most experienced?'}
                             </button>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
-                                💰 Show most economical option
+                                {locale === 'ta' ? '💰 சிறந்த கட்டண மருத்துவரை காட்டு' : '💰 Show most economical option'}
                             </button>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
-                                🕐 How do I book a slot?
+                                {locale === 'ta' ? '🕐 நேரத்தை எப்படி பதிவு செய்வது?' : '🕐 How do I book a slot?'}
                             </button>
                         </div>
                     </div>
@@ -337,21 +343,27 @@ export default function DoctorSelection() {
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             {(() => {
                                 const mostExp = [...doctors].sort((a, b) => parseInt(b.experience) - parseInt(a.experience))[0];
-                                return (
+                                return locale === 'ta' ? (
+                                    <>
+                                        இன்று கிடைக்கும் மருத்துவர்களில் <strong>{mostExp.name}</strong> அதிக அனுபவம் வாய்ந்தவர், இவருக்கு <strong>{mostExp.experience}</strong> பயிற்சி உள்ளது. இவரை நான் பரிந்துரைக்கிறேன்.
+                                    </>
+                                ) : (
                                     <>
                                         <strong>{mostExp.name}</strong> has the most experience out of available doctors today, with <strong>{mostExp.experience}</strong> of practice. I recommend them for complex cases.
                                     </>
                                 );
                             })()}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                     </div>
                 )}
 
@@ -359,19 +371,28 @@ export default function DoctorSelection() {
                     <div style={suggestionBubbleStyle} className="fade-in">
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
-                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
+                            <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
+                        </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             {(() => {
                                 const cheapest = [...doctors].sort((a, b) => a.fee - b.fee)[0];
-                                return (
+                                return locale === 'ta' ? (
+                                    <>
+                                        <strong>{cheapest.name}</strong> தற்போது குறைந்த கட்டணமான <strong>₹{cheapest.fee}</strong> வசூலிக்கிறார். இவரின் கிடைக்கக்கூடிய நேரங்களில் எதையும் நீங்கள் பதிவு செய்யலாம்!
+                                    </>
+                                ) : (
                                     <>
                                         <strong>{cheapest.name}</strong> currently has the most economical consultation fee of <strong>₹{cheapest.fee}</strong>. You can choose any of their available timeslots to book!
                                     </>
                                 );
                             })()}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                     </div>
                 )}
 
@@ -379,12 +400,21 @@ export default function DoctorSelection() {
                     <div style={suggestionBubbleStyle} className="fade-in">
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
-                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
+                            <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
+                        </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            To book, simply tap on any of the <strong>available time slots</strong> (e.g., 🕐 11:30 AM) listed under the doctor's name. You will be automatically taken to the payment screen to confirm!
+                            {locale === 'ta' ? (
+                                <>முன்பதிவு செய்ய, மருத்துவர் பெயரின் கீழ் பட்டியலிடப்பட்டுள்ள <strong>நேரங்களில்</strong> ஏதேனும் ஒன்றை (எ.கா: 🕐 11:30 AM) தட்டவும்! நீங்கள் கட்டணத் திரைக்கு அழைத்துச் செல்லப்படுவீர்கள்.</>
+                            ) : (
+                                <>To book, simply tap on any of the <strong>available time slots</strong> (e.g., 🕐 11:30 AM) listed under the doctor's name. You will be automatically taken to the payment screen to confirm!</>
+                            )}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                     </div>
                 )}
 

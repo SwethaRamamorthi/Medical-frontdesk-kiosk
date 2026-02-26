@@ -162,24 +162,24 @@ export default function DepartmentSelection() {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
                             <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
-                                ✨ AI Assistant
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
                             </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <div className="fade-in">
                             <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                Not sure which department to choose? Tell me your symptoms and I can guide you!
+                                {locale === 'ta' ? 'எந்தத் துறையைத் தேர்ந்தெடுப்பது என்று தெரியவில்லையா? உங்கள் அறிகுறிகளைச் சொல்லுங்கள், நான் வழிகாட்டுகிறேன்!' : 'Not sure which department to choose? Tell me your symptoms and I can guide you!'}
                             </p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                                 <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
-                                    🤕 I have a headache / dizziness
+                                    {locale === 'ta' ? '🤕 எனக்கு தலைவலி / தலைச்சுற்றல் உள்ளது' : '🤕 I have a headache / dizziness'}
                                 </button>
                                 <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
-                                    🦴 I have joint / bone pain
+                                    {locale === 'ta' ? '🦴 எனக்கு மூட்டு / எலும்பு வலி உள்ளது' : '🦴 I have joint / bone pain'}
                                 </button>
                                 <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
-                                    ❤️ I have chest pain / palpitations
+                                    {locale === 'ta' ? '❤️ எனக்கு நெஞ்சு வலி / படபடப்பு உள்ளது' : '❤️ I have chest pain / palpitations'}
                                 </button>
                             </div>
                         </div>
@@ -190,16 +190,20 @@ export default function DepartmentSelection() {
                             <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                             <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                                <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                                <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>{locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}</h3>
                                 <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                             </div>
                             <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                For headaches and dizziness, you should consult a <strong>Neurologist</strong>. I'll highlight the Neurology department for you.
+                                {locale === 'ta' ? (
+                                    <>தலைவலி மற்றும் தலைச்சுற்றலுக்கு, நீங்கள் ஒரு <strong>நரம்பியல் நிபுணரை (Neurologist)</strong> அணுக வேண்டும்.</>
+                                ) : (
+                                    <>For headaches and dizziness, you should consult a <strong>Neurologist</strong>. I'll highlight the Neurology department for you.</>
+                                )}
                             </p>
                             <div style={{ display: 'flex', gap: 10 }}>
-                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                                 <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSelect(departments.find(d => d.id === 'neurologist'))}>
-                                    Select Neurology ➔
+                                    {locale === 'ta' ? 'நரம்பியல் துறையைத் தேர்ந்தெடு ➔' : 'Select Neurology ➔'}
                                 </button>
                             </div>
                         </div>
@@ -210,16 +214,20 @@ export default function DepartmentSelection() {
                             <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                             <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                                <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                                <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>{locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}</h3>
                                 <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                             </div>
                             <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                For bone or joint pain, an <strong>Orthopedic</strong> specialist is best. Let's go to their profiles!
+                                {locale === 'ta' ? (
+                                    <>எலும்பு அல்லது மூட்டு வலிக்கு, <strong>எலும்பியல் நிபுணர் (Orthopedic)</strong> சிறந்தவர்.</>
+                                ) : (
+                                    <>For bone or joint pain, an <strong>Orthopedic</strong> specialist is best. Let's go to their profiles!</>
+                                )}
                             </p>
                             <div style={{ display: 'flex', gap: 10 }}>
-                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                                 <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSelect(departments.find(d => d.id === 'orthopedic'))}>
-                                    Select Orthopedics ➔
+                                    {locale === 'ta' ? 'எலும்பியல் துறையைத் தேர்ந்தெடு ➔' : 'Select Orthopedics ➔'}
                                 </button>
                             </div>
                         </div>
@@ -229,14 +237,21 @@ export default function DepartmentSelection() {
                         <div style={suggestionBubbleStyle} className="fade-in">
                             <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                             <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
-                            <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                                <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>{locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}</h3>
+                                <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
+                            </div>
                             <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                                Chest pain and palpitations require attention from a <strong>Cardiologist</strong>. Please select Cardiology, or use the Emergency button if urgent.
+                                {locale === 'ta' ? (
+                                    <>நெஞ்சு வலி மற்றும் படபடப்புக்கு <strong>இருதய நோய் நிபுணரின் (Cardiologist)</strong> கவனம் தேவை. இருதயவியல் துறையை தேர்ந்தெடுக்கவும் அல்லது அவசரம் எனில் SOS பொத்தானை அழுத்தவும்.</>
+                                ) : (
+                                    <>Chest pain and palpitations require attention from a <strong>Cardiologist</strong>. Please select Cardiology, or use the Emergency button if urgent.</>
+                                )}
                             </p>
                             <div style={{ display: 'flex', gap: 10 }}>
-                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                                <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                                 <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => handleSelect(departments.find(d => d.id === 'cardiologist'))}>
-                                    Select Cardiology ➔
+                                    {locale === 'ta' ? 'இருதயவியல் துறையைத் தேர்ந்தெடு ➔' : 'Select Cardiology ➔'}
                                 </button>
                             </div>
                         </div>

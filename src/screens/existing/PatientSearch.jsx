@@ -183,23 +183,25 @@ export default function PatientSearch() {
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                        <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                        <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                            {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                        </h3>
                         <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                     </div>
 
                     <div className="fade-in">
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            Hello! Need help finding your records?
+                            {locale === 'ta' ? 'வணக்கம்! உங்கள் ஆவணங்களை தேட உதவி வேண்டுமா?' : 'Hello! Need help finding your records?'}
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
-                                📱 I have my registered phone number
+                                {locale === 'ta' ? '📱 என்னிடம் எனது பதிவு செய்யப்பட்ட மொபைல் எண் உள்ளது' : '📱 I have my registered phone number'}
                             </button>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
-                                🔤 I want to search by my name
+                                {locale === 'ta' ? '🔤 நான் எனது பெயரால் தேட விரும்புகிறேன்' : '🔤 I want to search by my name'}
                             </button>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
-                                ❌ What if I'm not registered?
+                                {locale === 'ta' ? '❌ நான் பதிவு செய்யவில்லை என்றால் என்ன செய்வது?' : "❌ What if I'm not registered?"}
                             </button>
                         </div>
                     </div>
@@ -210,14 +212,22 @@ export default function PatientSearch() {
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            Great! Make sure the "Mobile Number" tab is selected. Use the on-screen keypad to enter your 10-digit phone number, then tap <strong>Search</strong>.
+                            {locale === 'ta' ? (
+                                <>சிறப்பு! <strong>"மொபைல் எண்"</strong> தாவல் தேர்ந்தெடுக்கப்பட்டிருப்பதை உறுதிசெய்யவும். திரையில் உள்ள விசைப்பலகையைப் பயன்படுத்தி உங்கள் 10 இலக்க எண்ணை உள்ளிட்டு, <strong>தேடு</strong> என்பதை அழுத்தவும்.</>
+                            ) : (
+                                <>Great! Make sure the "Mobile Number" tab is selected. Use the on-screen keypad to enter your 10-digit phone number, then tap <strong>Search</strong>.</>
+                            )}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => { setMode('phone'); setBotStep(-1); }}>Got it ➔</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => { setMode('phone'); setBotStep(-1); }}>
+                            {locale === 'ta' ? 'புரிந்தது ➔' : 'Got it ➔'}
+                        </button>
                     </div>
                 )}
 
@@ -226,14 +236,22 @@ export default function PatientSearch() {
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            No problem! Tap the "Name" tab above the keypad. Then, use the keyboard that appears to type at least the first 3 letters of your name and tap <strong>Search</strong>.
+                            {locale === 'ta' ? (
+                                <>பிரச்சனை இல்லை! <strong>"பெயர்"</strong> தாவலைத் தட்டவும். பிறகு, விசைப்பலகையைப் பயன்படுத்தி உங்கள் பெயரின் முதல் 3 எழுத்துக்களைத் தட்டச்சு செய்து <strong>தேடு</strong> என்பதை அழுத்தவும்.</>
+                            ) : (
+                                <>No problem! Tap the "Name" tab above the keypad. Then, use the keyboard that appears to type at least the first 3 letters of your name and tap <strong>Search</strong>.</>
+                            )}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => { setMode('name'); setBotStep(-1); }}>Got it ➔</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => { setMode('name'); setBotStep(-1); }}>
+                            {locale === 'ta' ? 'புரிந்தது ➔' : 'Got it ➔'}
+                        </button>
                     </div>
                 )}
 
@@ -242,17 +260,23 @@ export default function PatientSearch() {
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            If this is your first visit, tap the <strong>"Not registered? Register as New Patient"</strong> button at the bottom of the card to create your new profile.
+                            {locale === 'ta' ? (
+                                <>இது உங்கள் முதல் வருகை என்றால், உங்கள் புதிய சுயவிவரத்தை உருவாக்க அட்டையின் கீழே உள்ள <strong>"புதிய நோயாளியாக பதிவு செய்யவும்"</strong> என்ற பொத்தானைத் தட்டவும்.</>
+                            ) : (
+                                <>If this is your first visit, tap the <strong>"Not registered? Register as New Patient"</strong> button at the bottom of the card to create your new profile.</>
+                            )}
                         </p>
                         <div style={{ display: 'flex', gap: 10 }}>
-                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                             <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => navigate('/new/aadhaar')}>
-                                Start Registration ➔
+                                {locale === 'ta' ? 'பதிவைத் தொடங்கு ➔' : 'Start Registration ➔'}
                             </button>
                         </div>
                     </div>

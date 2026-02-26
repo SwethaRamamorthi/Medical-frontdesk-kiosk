@@ -302,23 +302,25 @@ export default function UpiPayment() {
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
 
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                        <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                        <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                            {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                        </h3>
                         <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                     </div>
 
                     <div className="fade-in">
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            You are almost done! I can help you complete this payment.
+                            {locale === 'ta' ? 'நீங்கள் கிட்டத்தட்ட முடித்துவிட்டீர்கள்! இந்தப் பணம் செலுத்துதலை முடிக்க நான் உங்களுக்கு உதவ முடியும்.' : 'You are almost done! I can help you complete this payment.'}
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(1)}>
-                                📱 How do I scan the QR code?
+                                {locale === 'ta' ? '📱 QR குறியீட்டை எப்படி ஸ்கேன் செய்வது?' : '📱 How do I scan the QR code?'}
                             </button>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(2)}>
-                                ⏱️ What happens if the timer runs out?
+                                {locale === 'ta' ? '⏱️ நேரம் முடிந்துவிட்டால் என்ன ஆகும்?' : '⏱️ What happens if the timer runs out?'}
                             </button>
                             <button className="btn btn-outline" style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'flex-start', textAlign: 'left', padding: '10px 14px', background: 'transparent' }} onClick={() => setBotStep(3)}>
-                                ✅ I have paid. What next?
+                                {locale === 'ta' ? '✅ நான் பணம் செலுத்திவிட்டேன். அடுத்து என்ன?' : '✅ I have paid. What next?'}
                             </button>
                         </div>
                     </div>
@@ -329,14 +331,20 @@ export default function UpiPayment() {
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            Open any UPI app on your phone (like <strong>GPay, PhonePe, or Paytm</strong>). Tap the "Scan QR" button in your app, point your camera at the QR code on this screen, and pay the requested amount.
+                            {locale === 'ta' ? (
+                                <>உங்கள் ஃபோனில் உள்ள எந்த UPI செயலியையும் திறக்கவும் (<strong>GPay, PhonePe அல்லது Paytm</strong> போன்றவை). உங்கள் செயலியில் "QR ஸ்கேன்" பொத்தானைத் தட்டி, இந்தத் திரையில் உள்ள QR குறியீட்டை ஸ்கேன் செய்து தொகையைச் செலுத்தவும்.</>
+                            ) : (
+                                <>Open any UPI app on your phone (like <strong>GPay, PhonePe, or Paytm</strong>). Tap the "Scan QR" button in your app, point your camera at the QR code on this screen, and pay the requested amount.</>
+                            )}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                     </div>
                 )}
 
@@ -345,14 +353,20 @@ export default function UpiPayment() {
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
-                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            If the 5-minute timer runs out, this session will expire for your security. You will be safely returned to the home screen and can start over anytime!
+                            {locale === 'ta' ? (
+                                <>5 நிமிட நேரம் முடிந்துவிட்டால், உங்கள் பாதுகாப்புக்காக இந்த அமர்வு காலாவதியாகும். நீங்கள் முகப்புத் திரைக்குத் திருப்பப்படுவீர்கள், எப்போது வேண்டுமானாலும் மீண்டும் தொடங்கலாம்!</>
+                            ) : (
+                                <>If the 5-minute timer runs out, this session will expire for your security. You will be safely returned to the home screen and can start over anytime!</>
+                            )}
                         </p>
-                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                        <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                     </div>
                 )}
 
@@ -360,18 +374,27 @@ export default function UpiPayment() {
                     <div style={suggestionBubbleStyle} className="fade-in">
                         <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
-                        <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 12 }}>
+                            <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>
+                                {locale === 'ta' ? '✨ AI உதவியாளர்' : '✨ AI Assistant'}
+                            </h3>
+                            <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
+                        </div>
 
                         <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
-                            If you have successfully paid using your phone, tap the large green <strong>"✅ Payment Completed"</strong> button below the timer to confirm and print your appointment slip!
+                            {locale === 'ta' ? (
+                                <>உங்கள் ஃபோனைப் பயன்படுத்தி பணத்தைச் செலுத்திவிட்டீர்கள் என்றால், நேரத்திற்கு கீழே உள்ள பெரிய பச்சை நிற <strong>"✅ பணம் செலுத்தியாயிற்று"</strong> பொத்தானைத் தட்டி உறுதிசெய்து உங்கள் முன்பதிவு சீட்டைப் பெறுங்கள்!</>
+                            ) : (
+                                <>If you have successfully paid using your phone, tap the large green <strong>"✅ Payment Completed"</strong> button below the timer to confirm and print your appointment slip!</>
+                            )}
                         </p>
                         <div style={{ display: 'flex', gap: 10 }}>
-                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
+                            <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>{locale === 'ta' ? '⬅ பின்செல்' : '⬅ Back'}</button>
                             <button className="btn btn-primary" style={{ flex: 1, background: '#5b54d6', borderColor: '#5b54d6' }} onClick={() => {
                                 setBotStep(-1);
                                 handlePaymentDone();
                             }}>
-                                Confirm Payment ➔
+                                {locale === 'ta' ? 'பணம் செலுத்தியதை உறுதிசெய் ➔' : 'Confirm Payment ➔'}
                             </button>
                         </div>
                     </div>
