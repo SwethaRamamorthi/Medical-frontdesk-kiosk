@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useKiosk } from '../../context/KioskContext';
@@ -41,7 +41,8 @@ const DEPT_COLORS = {
 
 export default function DoctorSelection() {
     const navigate = useNavigate();
-    const { selectedDept, setSelectedDoctor, setSelectedSlot, t, locale } = useKiosk();
+    const location = useLocation();
+    const { selectedDept, setSelectedDept, setSelectedDoctor, setSelectedSlot, t, locale } = useKiosk();
     const { speak } = useSpeech();
     const [doctors, setDoctors] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -49,24 +50,61 @@ export default function DoctorSelection() {
     const [expandedDocId, setExpandedDocId] = useState(null);
 
     useEffect(() => {
+        // Handle pre-selected department from history/AI
+        if (location.state?.preSelectedDept && !selectedDept) {
+            import('../../data/departments').then(({ departments }) => {
+                const dept = departments.find(d => d.id === location.state.preSelectedDept);
+                if (dept) {
+                    setSelectedDept(dept);
+                } else {
+                    navigate('/new/department');
+                }
+            });
+            return; // let setting selectedDept trigger a re-render
+        }
+
         if (!selectedDept) { navigate('/new/department'); return; }
+
         const deptName = typeof selectedDept.label === 'object' ? selectedDept.label[locale] : selectedDept.label;
-        speak(locale === 'ta' ? `${deptName} மருத்துவர்கள் காட்டப்படுகிறார்கள். தயவுசெய்து ஒரு மருத்துவரையும் நேரத்தையும் தேர்ந்தெடுக்கவும்.` : `Showing doctors for ${deptName}. Please select a doctor and available time slot.`);
+        if (location.state?.preSelectedDoctorName) {
+            speak(locale === 'ta' ? `${deptName} மருத்துவர் ${location.state.preSelectedDoctorName} காட்டப்படுகிறார். நேரத்தைத் தேர்ந்தெடுக்கவும்.` : `Showing ${location.state.preSelectedDoctorName} from ${deptName}. Please select an available time slot.`);
+        } else {
+            speak(locale === 'ta' ? `${deptName} மருத்துவர்கள் காட்டப்படுகிறார்கள். தயவுசெய்து ஒரு மருத்துவரையும் நேரத்தையும் தேர்ந்தெடுக்கவும்.` : `Showing doctors for ${deptName}. Please select a doctor and available time slot.`);
+        }
         fetchDoctors();
-    }, [locale]);
+    }, [locale, selectedDept, location.state]);
 
     const fetchDoctors = async () => {
         setLoading(true);
         try {
             const q = query(collection(db, 'doctors'), where('department', '==', selectedDept.id));
             const snap = await getDocs(q);
+            let resultDocs = [];
             if (!snap.empty) {
-                setDoctors(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+                resultDocs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
             } else {
-                setDoctors(FALLBACK_DOCTORS[selectedDept.id] || []);
+                resultDocs = FALLBACK_DOCTORS[selectedDept.id] || [];
             }
+
+            // Filter by preSelectedDoctorName if provided
+            if (location.state?.preSelectedDoctorName) {
+                const targetName = location.state.preSelectedDoctorName.toLowerCase().trim();
+                const filtered = resultDocs.filter(d => d.name.toLowerCase().trim() === targetName);
+                if (filtered.length > 0) {
+                    resultDocs = filtered;
+                }
+            }
+
+            setDoctors(resultDocs);
+
         } catch {
-            setDoctors(FALLBACK_DOCTORS[selectedDept.id] || []);
+            let fallbackResult = FALLBACK_DOCTORS[selectedDept.id] || [];
+            if (location.state?.preSelectedDoctorName) {
+                const targetName = location.state.preSelectedDoctorName.toLowerCase().trim();
+                const filtered = fallbackResult.filter(d => d.name.toLowerCase().trim() === targetName);
+                if (filtered.length > 0) fallbackResult = filtered;
+            }
+            setDoctors(fallbackResult);
         } finally {
             setLoading(false);
         }

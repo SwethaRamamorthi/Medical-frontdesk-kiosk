@@ -4,8 +4,37 @@ import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { useKiosk } from '../../context/KioskContext';
 import { useSpeech } from '../../hooks/useSpeech';
+import { departments } from '../../data/departments';
 import LoadingSpinner from '../../components/LoadingSpinner';
 import EmergencyButton from '../../components/EmergencyButton';
+
+// Floating animation for the bot icon
+const floatingBotStyle = {
+    fontSize: '3.5rem',
+    filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
+    animation: 'floating 3s ease-in-out infinite',
+    cursor: 'pointer',
+    position: 'relative',
+    zIndex: 100,
+};
+
+// Tooltip/bubble style for the suggestion
+const suggestionBubbleStyle = {
+    position: 'absolute',
+    bottom: '100%',
+    left: '20px',
+    marginBottom: '20px',
+    width: '380px',
+    background: 'rgba(255, 255, 255, 0.95)',
+    backdropFilter: 'blur(16px)',
+    border: '2px solid rgba(108, 99, 255, 0.4)',
+    borderRadius: '24px 24px 24px 4px', // distinct bubble shape
+    padding: '24px',
+    boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
+    transformOrigin: 'bottom left',
+    animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+    zIndex: 99,
+};
 
 export default function PatientHistory() {
     const navigate = useNavigate();
@@ -46,9 +75,31 @@ export default function PatientHistory() {
         navigate('/new/department');
     };
 
+    const handleRevisitDoctor = (doctorName, deptId) => {
+        resetFlow();
+        // Skip department selection and go straight to doctor selection for that department
+        navigate('/new/doctor', { state: { preSelectedDept: deptId, preSelectedDoctorName: doctorName } });
+    };
+
+    const handleSuggestOther = (deptId) => {
+        resetFlow();
+        navigate('/new/doctor', { state: { preSelectedDept: deptId } });
+    };
+
     if (!patient) return null;
 
     const lastVisit = appointments[0];
+
+    // Find department ID from the last visit's department name
+    let lastVisitDeptId = null;
+    if (lastVisit?.department) {
+        const dept = departments.find(d =>
+            d.label.en === lastVisit.department ||
+            d.label.ta === lastVisit.department ||
+            d.id.toLowerCase() === lastVisit.department.toLowerCase()
+        );
+        lastVisitDeptId = dept ? dept.id : null;
+    }
 
     return (
         <div className="screen fade-in">
@@ -113,6 +164,72 @@ export default function PatientHistory() {
                                         <div style={{ fontWeight: 700, fontSize: '1.05rem' }}>{val}</div>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Floating AI Suggestion Bot (Bottom Left) */}
+                    {lastVisit && lastVisitDeptId && (
+                        <div style={{
+                            position: 'fixed',
+                            bottom: '40px',
+                            left: '40px',
+                            zIndex: 1000,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start'
+                        }}>
+                            {/* The Message Bubble */}
+                            <div style={suggestionBubbleStyle}>
+                                {/* Arrow pointing down to the bot */}
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '-12px',
+                                    left: '16px',
+                                    width: 0,
+                                    height: 0,
+                                    borderLeft: '12px solid transparent',
+                                    borderRight: '12px solid transparent',
+                                    borderTop: '12px solid rgba(108, 99, 255, 0.4)'
+                                }} />
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '-9px',
+                                    left: '17px',
+                                    width: 0,
+                                    height: 0,
+                                    borderLeft: '11px solid transparent',
+                                    borderRight: '11px solid transparent',
+                                    borderTop: '11px solid rgba(255, 255, 255, 0.95)'
+                                }} />
+
+                                <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>
+                                    ✨ AI Assistant
+                                </h3>
+                                <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                    I noticed your last visit was with <strong>{lastVisit.doctorName}</strong> in <strong>{lastVisit.department}</strong>. Would you like to consult them again?
+                                </p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                                    <button
+                                        className="btn btn-primary"
+                                        style={{ background: '#5b54d6', borderColor: '#5b54d6', width: '100%', justifyContent: 'center' }}
+                                        onClick={() => handleRevisitDoctor(lastVisit.doctorName, lastVisitDeptId)}
+                                    >
+                                        👨‍⚕️ Revisit {lastVisit.doctorName}
+                                    </button>
+                                    <button
+                                        className="btn btn-outline"
+                                        style={{ borderColor: '#5b54d6', color: '#5b54d6', width: '100%', justifyContent: 'center', background: 'transparent' }}
+                                        onClick={() => handleSuggestOther(lastVisitDeptId)}
+                                    >
+                                        🔍 Show other {lastVisit.department} doctors
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* The Bot Icon */}
+                            <div style={floatingBotStyle}>
+                                🤖
                             </div>
                         </div>
                     )}
