@@ -13,7 +13,7 @@ export default function DepartmentSelection() {
 
     // Floating animation for the bot icon
     const floatingBotStyle = {
-        fontSize: '3.5rem',
+        fontSize: '3rem',
         filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
         animation: 'floating 3s ease-in-out infinite',
         cursor: 'pointer',
@@ -27,12 +27,12 @@ export default function DepartmentSelection() {
         bottom: '100%',
         left: '20px',
         marginBottom: '20px',
-        width: '380px',
+        width: '290px',
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(16px)',
         border: '2px solid rgba(108, 99, 255, 0.4)',
         borderRadius: '24px 24px 24px 4px',
-        padding: '24px',
+        padding: '16px',
         boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
         transformOrigin: 'bottom left',
         animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
@@ -168,7 +168,7 @@ export default function DepartmentSelection() {
                         </div>
 
                         <div className="fade-in">
-                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                 Not sure which department to choose? Tell me your symptoms and I can guide you!
                             </p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -193,7 +193,7 @@ export default function DepartmentSelection() {
                                 <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
                                 <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                             </div>
-                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                 For headaches and dizziness, you should consult a <strong>Neurologist</strong>. I'll highlight the Neurology department for you.
                             </p>
                             <div style={{ display: 'flex', gap: 10 }}>
@@ -213,7 +213,7 @@ export default function DepartmentSelection() {
                                 <h3 style={{ color: '#5b54d6', display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem', margin: 0 }}>✨ AI Assistant</h3>
                                 <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                             </div>
-                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                 For bone or joint pain, an <strong>Orthopedic</strong> specialist is best. Let's go to their profiles!
                             </p>
                             <div style={{ display: 'flex', gap: 10 }}>
@@ -230,7 +230,7 @@ export default function DepartmentSelection() {
                             <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                             <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                             <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
-                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                            <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                 Chest pain and palpitations require attention from a <strong>Cardiologist</strong>. Please select Cardiology, or use the Emergency button if urgent.
                             </p>
                             <div style={{ display: 'flex', gap: 10 }}>

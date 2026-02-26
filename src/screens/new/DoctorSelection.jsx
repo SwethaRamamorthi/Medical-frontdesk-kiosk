@@ -52,7 +52,7 @@ export default function DoctorSelection() {
 
     // Floating animation for the bot icon
     const floatingBotStyle = {
-        fontSize: '3.5rem',
+        fontSize: '3rem',
         filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
         animation: 'floating 3s ease-in-out infinite',
         cursor: 'pointer',
@@ -66,12 +66,12 @@ export default function DoctorSelection() {
         bottom: '100%',
         left: '20px',
         marginBottom: '20px',
-        width: '380px',
+        width: '290px',
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(16px)',
         border: '2px solid rgba(108, 99, 255, 0.4)',
         borderRadius: '24px 24px 24px 4px',
-        padding: '24px',
+        padding: '16px',
         boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
         transformOrigin: 'bottom left',
         animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
@@ -273,7 +273,7 @@ export default function DoctorSelection() {
 
                                             {/* Slots */}
                                             <div style={{ marginTop: 12 }}>
-                                                <div style={{ fontWeight: 700, marginBottom: 10, fontSize: '0.95rem', color: 'var(--text-muted)' }}>
+                                                <div style={{ fontWeight: 700, marginBottom: 10, fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                                                     {t('availableSlots')}
                                                 </div>
                                                 <div
@@ -304,7 +304,7 @@ export default function DoctorSelection() {
             </div>
 
             {/* Floating AI Suggestion Bot (Bottom Left) */}
-            <div style={{ position: 'fixed', bottom: '40px', left: '20px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div style={{ position: 'fixed', bottom: '40px', left: '16px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
                     <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
@@ -315,7 +315,7 @@ export default function DoctorSelection() {
                     </div>
 
                     <div className="fade-in">
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             These are our top {selectedDept && (typeof selectedDept.label === 'object' ? selectedDept.label.en : selectedDept.label)}s. Need help choosing?
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -341,7 +341,7 @@ export default function DoctorSelection() {
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             {(() => {
                                 const mostExp = [...doctors].sort((a, b) => parseInt(b.experience) - parseInt(a.experience))[0];
                                 return (
@@ -361,7 +361,7 @@ export default function DoctorSelection() {
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             {(() => {
                                 const cheapest = [...doctors].sort((a, b) => a.fee - b.fee)[0];
                                 return (
@@ -381,7 +381,7 @@ export default function DoctorSelection() {
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             To book, simply tap on any of the <strong>available time slots</strong> (e.g., 🕐 11:30 AM) listed under the doctor's name. You will be automatically taken to the payment screen to confirm!
                         </p>
                         <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>

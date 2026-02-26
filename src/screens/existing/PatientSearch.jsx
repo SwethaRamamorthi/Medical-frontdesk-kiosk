@@ -22,7 +22,7 @@ export default function PatientSearch() {
 
     // Floating animation for the bot icon
     const floatingBotStyle = {
-        fontSize: '3.5rem',
+        fontSize: '3rem',
         filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
         animation: 'floating 3s ease-in-out infinite',
         cursor: 'pointer',
@@ -36,12 +36,12 @@ export default function PatientSearch() {
         bottom: '100%',
         left: '20px',
         marginBottom: '20px',
-        width: '380px',
+        width: '290px',
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(16px)',
         border: '2px solid rgba(108, 99, 255, 0.4)',
         borderRadius: '24px 24px 24px 4px',
-        padding: '24px',
+        padding: '16px',
         boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
         transformOrigin: 'bottom left',
         animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
@@ -177,7 +177,7 @@ export default function PatientSearch() {
             </div>
 
             {/* Floating AI Suggestion Bot (Bottom Left) */}
-            <div style={{ position: 'fixed', bottom: '40px', left: '20px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div style={{ position: 'fixed', bottom: '40px', left: '16px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
                     <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
@@ -188,7 +188,7 @@ export default function PatientSearch() {
                     </div>
 
                     <div className="fade-in">
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             Hello! Need help finding your records?
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -214,7 +214,7 @@ export default function PatientSearch() {
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             Great! Make sure the "Mobile Number" tab is selected. Use the on-screen keypad to enter your 10-digit phone number, then tap <strong>Search</strong>.
                         </p>
                         <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => { setMode('phone'); setBotStep(-1); }}>Got it ➔</button>
@@ -230,7 +230,7 @@ export default function PatientSearch() {
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             No problem! Tap the "Name" tab above the keypad. Then, use the keyboard that appears to type at least the first 3 letters of your name and tap <strong>Search</strong>.
                         </p>
                         <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => { setMode('name'); setBotStep(-1); }}>Got it ➔</button>
@@ -246,7 +246,7 @@ export default function PatientSearch() {
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             If this is your first visit, tap the <strong>"Not registered? Register as New Patient"</strong> button at the bottom of the card to create your new profile.
                         </p>
                         <div style={{ display: 'flex', gap: 10 }}>

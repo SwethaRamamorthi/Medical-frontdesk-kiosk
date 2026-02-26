@@ -10,7 +10,7 @@ import EmergencyButton from '../../components/EmergencyButton';
 
 // Floating animation for the bot icon
 const floatingBotStyle = {
-    fontSize: '3.5rem',
+    fontSize: '3rem',
     filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
     animation: 'floating 3s ease-in-out infinite',
     cursor: 'pointer',
@@ -24,12 +24,12 @@ const suggestionBubbleStyle = {
     bottom: '100%',
     left: '20px',
     marginBottom: '20px',
-    width: '380px',
+    width: '290px',
     background: 'rgba(255, 255, 255, 0.95)',
     backdropFilter: 'blur(16px)',
     border: '2px solid rgba(108, 99, 255, 0.4)',
     borderRadius: '24px 24px 24px 4px', // distinct bubble shape
-    padding: '24px',
+    padding: '16px',
     boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
     transformOrigin: 'bottom left',
     animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
@@ -213,7 +213,7 @@ export default function PatientHistory() {
 
                                 {botStep === 0 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
-                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                             Hi <strong>{patient.name}</strong>! I noticed your last visit was with <strong>Dr. {lastVisit.doctorName}</strong> for {lastVisit.department.replace(/department/i, '').trim()}. How can I help you today?
                                         </p>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -244,7 +244,7 @@ export default function PatientHistory() {
 
                                 {botStep === 1 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
-                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                             Great! Let's book a follow-up. I will take you to <strong>Dr. {lastVisit.doctorName}'s</strong> profile where you can select an available time slot and complete your booking.
                                         </p>
                                         <div style={{ display: 'flex', gap: 10 }}>
@@ -258,7 +258,7 @@ export default function PatientHistory() {
 
                                 {botStep === 2 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
-                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                             Sure. I will show you our other experienced doctors in the <strong>{lastVisit.department}</strong> department so you can choose who you'd like to consult.
                                         </p>
                                         <div style={{ display: 'flex', gap: 10 }}>
@@ -272,7 +272,7 @@ export default function PatientHistory() {
 
                                 {botStep === 3 && (
                                     <div className="fade-in" style={{ animation: 'fadeIn 0.3s' }}>
-                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                                             I'm here to help. I will redirect you to the department selection menu so we can find the right specialist for your new concern.
                                         </p>
                                         <div style={{ display: 'flex', gap: 10 }}>

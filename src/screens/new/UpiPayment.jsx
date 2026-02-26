@@ -42,7 +42,7 @@ export default function UpiPayment() {
 
     // Floating animation for the bot icon
     const floatingBotStyle = {
-        fontSize: '3.5rem',
+        fontSize: '3rem',
         filter: 'drop-shadow(0 10px 15px rgba(91,84,214,0.3))',
         animation: 'floating 3s ease-in-out infinite',
         cursor: 'pointer',
@@ -56,12 +56,12 @@ export default function UpiPayment() {
         bottom: '100%',
         left: '20px',
         marginBottom: '20px',
-        width: '380px',
+        width: '290px',
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(16px)',
         border: '2px solid rgba(108, 99, 255, 0.4)',
         borderRadius: '24px 24px 24px 4px',
-        padding: '24px',
+        padding: '16px',
         boxShadow: '0 20px 40px rgba(0,0,0,0.15), 0 0 40px rgba(108, 99, 255, 0.1)',
         transformOrigin: 'bottom left',
         animation: 'fadeUpScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
@@ -180,7 +180,7 @@ export default function UpiPayment() {
                                         [t('slotTerm'), selectedSlot],
                                     ].map(([label, value]) => (
                                         <tr key={label} style={{ borderBottom: '1px solid var(--glass-border)' }}>
-                                            <td style={{ padding: '10px 0', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.95rem' }}>{label}</td>
+                                            <td style={{ padding: '10px 0', color: 'var(--text-muted)', fontWeight: 600, fontSize: '0.9rem' }}>{label}</td>
                                             <td style={{ padding: '10px 0', fontWeight: 700, textAlign: 'right', color: 'var(--text-main)' }}>{value}</td>
                                         </tr>
                                     ))}
@@ -203,7 +203,7 @@ export default function UpiPayment() {
 
                             {/* Timer */}
                             <div style={{ textAlign: 'center', marginTop: 20 }}>
-                                <div style={{ fontSize: '0.95rem', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 4 }}>
+                                <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 600, marginBottom: 4 }}>
                                     ⏱ {t('paymentWindow')}
                                 </div>
                                 <div className="timer-ring" style={{ color: timerColor, textShadow: timeLeft < 60 ? '0 0 16px rgba(255,77,109,0.6)' : '0 0 16px rgba(0,212,200,0.4)' }}>
@@ -275,7 +275,7 @@ export default function UpiPayment() {
                                 </div>
                             </div>
 
-                            <p className="text-muted" style={{ fontSize: '0.95rem', marginBottom: 16 }}>
+                            <p className="text-muted" style={{ fontSize: '0.9rem', marginBottom: 16 }}>
                                 {t('payUsingUpi')}
                             </p>
 
@@ -296,7 +296,7 @@ export default function UpiPayment() {
             </div>
 
             {/* Floating AI Suggestion Bot (Bottom Left) */}
-            <div style={{ position: 'fixed', bottom: '40px', left: '20px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div style={{ position: 'fixed', bottom: '40px', left: '16px', zIndex: 1000, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                 <div style={{ ...suggestionBubbleStyle, display: botStep === 0 ? 'block' : 'none' }}>
                     <div style={{ position: 'absolute', bottom: '-12px', left: '16px', width: 0, height: 0, borderLeft: '12px solid transparent', borderRight: '12px solid transparent', borderTop: '12px solid rgba(108, 99, 255, 0.4)' }} />
                     <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
@@ -307,7 +307,7 @@ export default function UpiPayment() {
                     </div>
 
                     <div className="fade-in">
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             You are almost done! I can help you complete this payment.
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
@@ -333,7 +333,7 @@ export default function UpiPayment() {
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             Open any UPI app on your phone (like <strong>GPay, PhonePe, or Paytm</strong>). Tap the "Scan QR" button in your app, point your camera at the QR code on this screen, and pay the requested amount.
                         </p>
                         <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
@@ -349,7 +349,7 @@ export default function UpiPayment() {
                             <button onClick={(e) => { e.stopPropagation(); setBotStep(-1); }} style={{ background: 'transparent', border: 'none', color: '#999', cursor: 'pointer', fontSize: '1.2rem', padding: '0 4px', lineHeight: 1 }}>×</button>
                         </div>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             If the 5-minute timer runs out, this session will expire for your security. You will be safely returned to the home screen and can start over anytime!
                         </p>
                         <button className="btn btn-outline" style={{ width: 'auto', padding: '10px' }} onClick={() => setBotStep(0)}>⬅ Back</button>
@@ -362,7 +362,7 @@ export default function UpiPayment() {
                         <div style={{ position: 'absolute', bottom: '-9px', left: '17px', width: 0, height: 0, borderLeft: '11px solid transparent', borderRight: '11px solid transparent', borderTop: '11px solid rgba(255, 255, 255, 0.95)' }} />
                         <h3 style={{ color: '#5b54d6', marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8, fontSize: '1.1rem' }}>✨ AI Assistant</h3>
 
-                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.95rem' }}>
+                        <p style={{ color: '#333', marginBottom: 16, lineHeight: 1.5, fontSize: '0.9rem' }}>
                             If you have successfully paid using your phone, tap the large green <strong>"✅ Payment Completed"</strong> button below the timer to confirm and print your appointment slip!
                         </p>
                         <div style={{ display: 'flex', gap: 10 }}>
