@@ -243,7 +243,7 @@ export default function PatientRecordsDashboard() {
                                         </div>
                                     </div>
 
-                                    <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: (appt.prescription || appt.labResult) ? '16px' : '0' }}>
+                                    <div style={{ background: '#f8fafc', padding: '12px', borderRadius: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                                         <div style={{ fontSize: '0.9rem', color: '#4b5563' }}>Consultation Fee: <strong style={{ color: '#111827' }}>₹{appt.fee}</strong></div>
                                         <div style={{
                                             background: appt.paymentStatus === 'Paid' ? '#dcfce7' : '#fee2e2',
@@ -260,32 +260,26 @@ export default function PatientRecordsDashboard() {
                                         </div>
                                     </div>
 
-                                    {/* Mock Medical Records Section */}
-                                    {(appt.prescription || appt.labResult) && (
-                                        <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-                                            {appt.prescription && (
-                                                <div style={{ marginBottom: appt.labResult ? '12px' : '0' }}>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '0.85rem', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                                        <span>💊</span> Prescription
-                                                    </div>
-                                                    <div style={{ color: '#444', fontSize: '0.9rem', lineHeight: '1.5', paddingLeft: '24px' }}>
-                                                        {appt.prescription}
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            {appt.labResult && (
-                                                <div>
-                                                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '0.85rem', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                                                        <span>🔬</span> Lab Results
-                                                    </div>
-                                                    <div style={{ color: '#444', fontSize: '0.9rem', lineHeight: '1.5', paddingLeft: '24px' }}>
-                                                        {appt.labResult}
-                                                    </div>
-                                                </div>
-                                            )}
+                                    {/* Medical Records Section (Always shown now) */}
+                                    <div style={{ background: '#f8fafc', padding: '16px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+                                        <div style={{ marginBottom: '12px' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '0.85rem', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                <span>💊</span> Prescription
+                                            </div>
+                                            <div style={{ color: '#444', fontSize: '0.9rem', lineHeight: '1.5', paddingLeft: '24px' }}>
+                                                {appt.prescription || 'No previous prescription records found.'}
+                                            </div>
                                         </div>
-                                    )}
+
+                                        <div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#0f172a', fontWeight: 700, fontSize: '0.85rem', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                                <span>🔬</span> Lab Results
+                                            </div>
+                                            <div style={{ color: '#444', fontSize: '0.9rem', lineHeight: '1.5', paddingLeft: '24px' }}>
+                                                {appt.labResult || 'No previous lab records found.'}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
