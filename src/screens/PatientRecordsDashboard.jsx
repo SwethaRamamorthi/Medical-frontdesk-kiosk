@@ -77,7 +77,26 @@ export default function PatientRecordsDashboard() {
             const apptQuery = query(collection(db, 'appointments'), where('patientId', '==', patientId));
             const apptSnap = await getDocs(apptQuery);
 
-            const apptsData = apptSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            let apptsData = apptSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+            // 4. Merge old seeded dummy appointments (which are nested in the patient doc)
+            if (patientData.appointments && Array.isArray(patientData.appointments)) {
+                const oldAppts = patientData.appointments.map((appt, i) => ({
+                    id: `legacy-${i}`,
+                    appointmentId: appt.token || `LEGACY-${i}`,
+                    doctorName: appt.doctor ? appt.doctor.replace('Dr. ', '') : 'Unknown',
+                    department: appt.department || 'General',
+                    date: appt.date || 'Unknown Date',
+                    slot: 'Unknown Time',
+                    fee: appt.fee || 0,
+                    paymentStatus: 'Paid',
+                    prescription: appt.prescription || null,
+                    labResult: appt.labResult || null,
+                    // Use a mock timestamp based on date for sorting
+                    createdAt: { seconds: new Date(appt.date || '2025-01-01').getTime() / 1000 }
+                }));
+                apptsData = [...apptsData, ...oldAppts];
+            }
 
             // Sort by date desc
             apptsData.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
