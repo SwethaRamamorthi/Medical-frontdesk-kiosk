@@ -96,25 +96,27 @@ export default function PatientRecordsDashboard() {
                     createdAt: { seconds: new Date(appt.date || '2025-01-01').getTime() / 1000 }
                 }));
                 apptsData = [...apptsData, ...oldAppts];
-            } else {
-                // If patient was manually created and lacks seeded data, inject dummy historical records for demo purposes
-                const dummyAppts = [
+            }
+
+            // DEMO OVERRIDE: Always inject at least one dummy record for Demonstration if they only have 1 (the brand new one)
+            if (apptsData.length <= 1) {
+                const demoAppts = [
                     {
-                        id: 'demo-legacy-1',
-                        appointmentId: 'HIST-001',
+                        id: 'demo-legacy-override-1',
+                        appointmentId: 'HIST-DEMO-1',
                         doctorName: 'Vikram Singh',
                         department: 'Orthopedic',
-                        date: '15/10/2025',
+                        date: '10/02/2026',
                         slot: '11:00 AM',
                         fee: 550,
                         paymentStatus: 'Paid',
                         prescription: 'Vitamin D3 60,000 IU (once a week for 8 weeks). Calcium supplements daily.',
                         labResult: 'X-Ray Knee: Mild osteoarthritis. Vit D levels: 14 ng/mL (Deficient).',
-                        createdAt: { seconds: new Date('2025-10-15').getTime() / 1000 }
+                        createdAt: { seconds: new Date('2026-02-10').getTime() / 1000 }
                     },
                     {
-                        id: 'demo-legacy-2',
-                        appointmentId: 'HIST-002',
+                        id: 'demo-legacy-override-2',
+                        appointmentId: 'HIST-DEMO-2',
                         doctorName: 'Ananya Mehta',
                         department: 'Neurologist',
                         date: '20/01/2026',
@@ -126,7 +128,7 @@ export default function PatientRecordsDashboard() {
                         createdAt: { seconds: new Date('2026-01-20').getTime() / 1000 }
                     }
                 ];
-                apptsData = [...apptsData, ...dummyAppts];
+                apptsData = [...apptsData, ...demoAppts];
             }
 
             // Sort by date desc
