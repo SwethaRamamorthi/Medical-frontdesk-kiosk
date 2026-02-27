@@ -49,16 +49,28 @@ export default function PatientRecordsDashboard() {
             }
 
             // 2. Fetch Patient Details
-            const patientQuery = query(collection(db, 'patients'), where('id', '==', patientId));
-            const patientSnap = await getDocs(patientQuery);
+            let patientSnap;
+            try {
+                // Try querying by 'id' field first
+                const patientQuery = query(collection(db, 'patients'), where('id', '==', patientId));
+                patientSnap = await getDocs(patientQuery);
 
-            if (patientSnap.empty) {
+                // If empty, try getting by document ID directly
+                if (patientSnap.empty) {
+                    const docIdQuery = query(collection(db, 'patients'), where('__name__', '==', patientId));
+                    patientSnap = await getDocs(docIdQuery);
+                }
+            } catch (e) {
+                console.warn("Query fallback error", e);
+            }
+
+            if (!patientSnap || patientSnap.empty) {
                 setError('Patient profile not found.');
                 setLoading(false);
                 return;
             }
 
-            const patientData = patientSnap.docs[0].data();
+            const patientData = { id: patientSnap.docs[0].id, ...patientSnap.docs[0].data() };
             setPatient(patientData);
 
             // 3. Fetch Appointment History

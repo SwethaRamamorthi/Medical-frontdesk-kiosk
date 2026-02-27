@@ -17,6 +17,11 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // QR Access Tokens – allow read, write
+    match /qrAccess/{tokenId} {
+      allow read, write: if true;
+    }
+
     // Block everything else by default
     match /{document=**} {
       allow read, write: if false;
