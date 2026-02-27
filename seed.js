@@ -67,7 +67,7 @@ const samplePatients = [
         gender: 'Female',
         phone: '9733445566',
         appointments: [
-            { date: '2025-09-15', department: 'Pediatrician', doctor: 'Dr. Kavitha Nair', fee: 400, token: 'E02', status: 'Completed' },
+            { date: '2025-09-15', department: 'Pediatrician', doctor: 'Dr. Kavitha Nair', fee: 400, token: 'E02', status: 'Completed', prescription: 'Paracetamol 250mg syrup (5ml SOS for fever), Cough syrup (5ml twice daily)', labResult: 'Complete Blood Count: Normal.' },
             { date: '2025-12-22', department: 'Cardiologist', doctor: 'Dr. Meena Iyer', fee: 650, token: 'F09', status: 'Completed', prescription: 'Metoprolol 25mg (1 tablet morning)', labResult: 'ECG: Normal sinus rhythm. BP: 140/90.' },
             { date: '2026-02-18', department: 'Neurologist', doctor: 'Dr. Ananya Mehta', fee: 500, token: 'G05', status: 'Completed', prescription: 'Donepezil 5mg (1 tablet before bed)', labResult: 'CT Head: Age-related cerebral atrophy.' },
         ],
@@ -90,7 +90,7 @@ const samplePatients = [
         gender: 'Female',
         phone: '9555667788',
         appointments: [
-            { date: '2025-07-14', department: 'Pediatrician', doctor: 'Dr. Arjun Pillai', fee: 350, token: 'J06', status: 'Completed' },
+            { date: '2025-07-14', department: 'Pediatrician', doctor: 'Dr. Arjun Pillai', fee: 350, token: 'J06', status: 'Completed', prescription: 'Cetirizine Syrup (5ml at bedtime for 5 days)', labResult: 'Allergy Test: Mild dust mite allergy.' },
             { date: '2025-11-27', department: 'Neurologist', doctor: 'Dr. Rajesh Kumar', fee: 600, token: 'K01', status: 'Completed', prescription: 'Sumatriptan 50mg (Take at onset of migraine)', labResult: 'No acute findings.' },
             { date: '2026-02-14', department: 'Orthopedic', doctor: 'Dr. Vikram Singh', fee: 550, token: 'L10', status: 'Completed', prescription: 'Vitamin D3 60,000 IU (once a week for 8 weeks)', labResult: 'Vit D levels: 12 ng/mL (Deficient).' },
         ],
