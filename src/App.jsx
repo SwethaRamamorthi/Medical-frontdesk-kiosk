@@ -13,6 +13,7 @@ import AppointmentSlip from './screens/new/AppointmentSlip';
 import PatientSearch from './screens/existing/PatientSearch';
 import PatientHistory from './screens/existing/PatientHistory';
 import SeedScreen from './screens/SeedScreen';
+import PatientRecordsDashboard from './screens/PatientRecordsDashboard';
 
 // Import Google Fonts
 const fontLink = document.createElement('link');
@@ -38,6 +39,8 @@ function AppRoutes() {
                 <Route path="/new/slip" element={<AppointmentSlip />} />
                 <Route path="/existing" element={<PatientSearch />} />
                 <Route path="/existing/history" element={<PatientHistory />} />
+                {/* External Mobile Route */}
+                <Route path="/records/:token" element={<PatientRecordsDashboard />} />
                 {/* Dev seeder */}
                 <Route path="/seed" element={<SeedScreen />} />
                 {/* Fallback */}

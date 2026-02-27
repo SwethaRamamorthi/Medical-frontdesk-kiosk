@@ -1,8 +1,12 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useKiosk } from '../../context/KioskContext';
 import { useSpeech } from '../../hooks/useSpeech';
 import EmergencyButton from '../../components/EmergencyButton';
+import { v4 as uuidv4 } from 'uuid';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { db } from '../../firebase';
+import { QRCodeSVG } from 'qrcode.react';
 
 export default function AppointmentSlip() {
     const navigate = useNavigate();
@@ -10,6 +14,7 @@ export default function AppointmentSlip() {
     const { speak } = useSpeech();
     const printedRef = useRef(false);
     const countdownRef = useRef(null);
+    const [qrToken, setQrToken] = useState(null);
 
     useEffect(() => {
         if (!appointment) { navigate('/'); return; }
@@ -18,11 +23,29 @@ export default function AppointmentSlip() {
             ? `உங்கள் முன்பதிவு உறுதி செய்யப்பட்டது! முன்பதிவு எண்: ${appointment.appointmentId}. டோக்கன் எண் ${appointment.tokenNumber}. உங்கள் சீட்டு அச்சடிக்கப்படுகிறது. தயவுசெய்து அதை பெற்றுக்கொள்ளுங்கள்.`
             : `Your appointment has been confirmed! Appointment ID: ${appointment.appointmentId}. Token number ${appointment.tokenNumber}. Your slip is being printed. Please collect it.`);
 
-        // Auto-print once
-        if (!printedRef.current) {
+        const generateAndSaveToken = async () => {
+            if (printedRef.current) return;
             printedRef.current = true;
-            setTimeout(() => window.print(), 800);
-        }
+
+            const token = uuidv4();
+            setQrToken(token);
+
+            try {
+                await addDoc(collection(db, 'qrAccess'), {
+                    tokenId: token,
+                    patientId: patient?.id || appointment.patientId || null,
+                    createdAt: serverTimestamp(),
+                    isActive: true
+                });
+            } catch (error) {
+                console.error('Error saving QR token:', error);
+            }
+
+            // Auto-print once after rendering
+            setTimeout(() => window.print(), 1000);
+        };
+
+        generateAndSaveToken();
 
         // Auto-return to welcome after 12s
         let count = 12;
@@ -183,6 +206,21 @@ export default function AppointmentSlip() {
                             ))}
                         </tbody>
                     </table>
+
+                    {/* QR Code Section */}
+                    {qrToken && (
+                        <div style={{ textAlign: 'center', marginBottom: 24 }}>
+                            <div style={{ border: '2px solid rgba(0, 212, 200, 0.30)', padding: '12px', display: 'inline-block', borderRadius: '12px', background: 'white' }}>
+                                <QRCodeSVG
+                                    value={`${window.location.origin}/records/${qrToken}`}
+                                    size={140}
+                                />
+                            </div>
+                            <div style={{ marginTop: '12px', fontSize: '0.9rem', color: 'var(--text-main)', fontWeight: 600 }}>
+                                Scan this QR at any department to view complete medical history.
+                            </div>
+                        </div>
+                    )}
 
                     {/* Instructions */}
                     <div style={{
