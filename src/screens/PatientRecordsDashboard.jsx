@@ -96,6 +96,37 @@ export default function PatientRecordsDashboard() {
                     createdAt: { seconds: new Date(appt.date || '2025-01-01').getTime() / 1000 }
                 }));
                 apptsData = [...apptsData, ...oldAppts];
+            } else {
+                // If patient was manually created and lacks seeded data, inject dummy historical records for demo purposes
+                const dummyAppts = [
+                    {
+                        id: 'demo-legacy-1',
+                        appointmentId: 'HIST-001',
+                        doctorName: 'Vikram Singh',
+                        department: 'Orthopedic',
+                        date: '15/10/2025',
+                        slot: '11:00 AM',
+                        fee: 550,
+                        paymentStatus: 'Paid',
+                        prescription: 'Vitamin D3 60,000 IU (once a week for 8 weeks). Calcium supplements daily.',
+                        labResult: 'X-Ray Knee: Mild osteoarthritis. Vit D levels: 14 ng/mL (Deficient).',
+                        createdAt: { seconds: new Date('2025-10-15').getTime() / 1000 }
+                    },
+                    {
+                        id: 'demo-legacy-2',
+                        appointmentId: 'HIST-002',
+                        doctorName: 'Ananya Mehta',
+                        department: 'Neurologist',
+                        date: '20/01/2026',
+                        slot: '02:00 PM',
+                        fee: 600,
+                        paymentStatus: 'Paid',
+                        prescription: 'Amitriptyline 10mg (1 tablet at night for 14 days)',
+                        labResult: 'MRI Brain: Unremarkable. Normal study.',
+                        createdAt: { seconds: new Date('2026-01-20').getTime() / 1000 }
+                    }
+                ];
+                apptsData = [...apptsData, ...dummyAppts];
             }
 
             // Sort by date desc
