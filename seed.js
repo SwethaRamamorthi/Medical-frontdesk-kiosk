@@ -45,8 +45,8 @@ const samplePatients = [
         gender: 'Female',
         phone: '9811223344',
         appointments: [
-            { date: '2025-11-10', department: 'Ophthalmologist', doctor: 'Dr. Sunil Verma', fee: 450, token: 'A12', status: 'Completed' },
-            { date: '2026-01-20', department: 'Neurologist', doctor: 'Dr. Rajesh Kumar', fee: 600, token: 'B04', status: 'Completed' },
+            { date: '2025-11-10', department: 'Ophthalmologist', doctor: 'Dr. Sunil Verma', fee: 450, token: 'A12', status: 'Completed', prescription: 'Moxifloxacin Eye Drops 0.5% (1 drop, 3 times a day for 7 days)', labResult: 'Vision Test: 20/20. No signs of glaucoma.' },
+            { date: '2026-01-20', department: 'Neurologist', doctor: 'Dr. Rajesh Kumar', fee: 600, token: 'B04', status: 'Completed', prescription: 'Amitriptyline 10mg (1 tablet at night for 14 days)', labResult: 'MRI Brain: Unremarkable. Normal study.' },
         ],
     },
     {
@@ -56,8 +56,8 @@ const samplePatients = [
         gender: 'Male',
         phone: '9922334455',
         appointments: [
-            { date: '2025-10-05', department: 'Cardiologist', doctor: 'Dr. Ramesh Gupta', fee: 700, token: 'C07', status: 'Completed' },
-            { date: '2026-02-01', department: 'Orthopedic', doctor: 'Dr. Vikram Singh', fee: 550, token: 'D11', status: 'Completed' },
+            { date: '2025-10-05', department: 'Cardiologist', doctor: 'Dr. Ramesh Gupta', fee: 700, token: 'C07', status: 'Completed', prescription: 'Atorvastatin 20mg (1 tablet daily post dinner)', labResult: 'Lipid Profile: Total Cholesterol 240mg/dL (High).' },
+            { date: '2026-02-01', department: 'Orthopedic', doctor: 'Dr. Vikram Singh', fee: 550, token: 'D11', status: 'Completed', prescription: 'Ibuprofen 400mg (as needed for pain), Calcium supplements', labResult: 'X-Ray Knee: Mild osteoarthritis.' },
         ],
     },
     {
@@ -68,8 +68,8 @@ const samplePatients = [
         phone: '9733445566',
         appointments: [
             { date: '2025-09-15', department: 'Pediatrician', doctor: 'Dr. Kavitha Nair', fee: 400, token: 'E02', status: 'Completed' },
-            { date: '2025-12-22', department: 'Cardiologist', doctor: 'Dr. Meena Iyer', fee: 650, token: 'F09', status: 'Completed' },
-            { date: '2026-02-18', department: 'Neurologist', doctor: 'Dr. Ananya Mehta', fee: 500, token: 'G05', status: 'Completed' },
+            { date: '2025-12-22', department: 'Cardiologist', doctor: 'Dr. Meena Iyer', fee: 650, token: 'F09', status: 'Completed', prescription: 'Metoprolol 25mg (1 tablet morning)', labResult: 'ECG: Normal sinus rhythm. BP: 140/90.' },
+            { date: '2026-02-18', department: 'Neurologist', doctor: 'Dr. Ananya Mehta', fee: 500, token: 'G05', status: 'Completed', prescription: 'Donepezil 5mg (1 tablet before bed)', labResult: 'CT Head: Age-related cerebral atrophy.' },
         ],
     },
     {
@@ -79,8 +79,8 @@ const samplePatients = [
         gender: 'Male',
         phone: '9644556677',
         appointments: [
-            { date: '2025-08-30', department: 'Orthopedic', doctor: 'Dr. Geeta Bhatt', fee: 500, token: 'H03', status: 'Completed' },
-            { date: '2026-01-10', department: 'Ophthalmologist', doctor: 'Dr. Priya Sharma', fee: 400, token: 'I08', status: 'Completed' },
+            { date: '2025-08-30', department: 'Orthopedic', doctor: 'Dr. Geeta Bhatt', fee: 500, token: 'H03', status: 'Completed', prescription: 'Diclofenac Gel (apply locally 2 times a day)', labResult: 'MRI Spine: L4-L5 disc desiccation.' },
+            { date: '2026-01-10', department: 'Ophthalmologist', doctor: 'Dr. Priya Sharma', fee: 400, token: 'I08', status: 'Completed', prescription: 'Lubricating Eye Drops (Carboxymethylcellulose 0.5%)', labResult: 'Dry Eye Test: Positive.' },
         ],
     },
     {
@@ -91,8 +91,8 @@ const samplePatients = [
         phone: '9555667788',
         appointments: [
             { date: '2025-07-14', department: 'Pediatrician', doctor: 'Dr. Arjun Pillai', fee: 350, token: 'J06', status: 'Completed' },
-            { date: '2025-11-27', department: 'Neurologist', doctor: 'Dr. Rajesh Kumar', fee: 600, token: 'K01', status: 'Completed' },
-            { date: '2026-02-14', department: 'Orthopedic', doctor: 'Dr. Vikram Singh', fee: 550, token: 'L10', status: 'Completed' },
+            { date: '2025-11-27', department: 'Neurologist', doctor: 'Dr. Rajesh Kumar', fee: 600, token: 'K01', status: 'Completed', prescription: 'Sumatriptan 50mg (Take at onset of migraine)', labResult: 'No acute findings.' },
+            { date: '2026-02-14', department: 'Orthopedic', doctor: 'Dr. Vikram Singh', fee: 550, token: 'L10', status: 'Completed', prescription: 'Vitamin D3 60,000 IU (once a week for 8 weeks)', labResult: 'Vit D levels: 12 ng/mL (Deficient).' },
         ],
     },
 ];
